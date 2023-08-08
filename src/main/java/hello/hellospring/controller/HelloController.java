@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HelloController {
-    @GetMapping("hello")
+    @GetMapping("hello") //렌더링 된 html을 반환한다.
     public String hello(Model model) {
         model.addAttribute("data","spring!!");
         return "hello";
