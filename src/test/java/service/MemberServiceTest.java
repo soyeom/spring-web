@@ -2,7 +2,9 @@ package service;
 
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemoryMemberRepository;
+import hello.hellospring.service.MemberService;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
@@ -10,11 +12,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MemberServiceTest {
 
-    MemberService memberService = new MemberService();
+    MemberService memberService;
+    MemoryMemberRepository memberRepository;
+
+    // 각 테스트 실행 전에 호출된다.
+    // 테스트가 서로 영향이 없도록 항상 새로운 객체를 생성하고, 의존관계도 새로 맺어준다.
+    @BeforeEach
+    public void beforeEach() {
+        memberRepository = new MemoryMemberRepository();
+        memberService = new MemberService(memberRepository);
+    }
 
     //메모리 클리어
-    MemoryMemberRepository memberRepository = new MemoryMemberRepository();
-
     @AfterEach
     public void afterEach() {
         memberRepository.clearStore();;
